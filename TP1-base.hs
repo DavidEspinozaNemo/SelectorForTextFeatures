@@ -98,6 +98,7 @@ cargar inh estado = do
       ineof <- hIsEOF inh
       if ineof then return estado
                else do inpStr <- hGetLine inh
+                       --putStr inpStr --aqui se lee linea por linea
                        let nuevoestado = foldl contar_token estado (words (map toLower inpStr))
                        cargar inh nuevoestado
 
