@@ -56,3 +56,22 @@ contarNpi [(y,ys)] [] = [(ys, contarNp y (0,0,0) )]
 --contarNpi [(y,ys)] ((x,(a,b,c):xs) | isSubsequenceOf ys x == True = (x, contarNp y (a,b,c) ) : xs
 --                                   | otherwise = (x,(a,b,c)) : contarNpi [(y,ys)] xs
 estaFuncionanado = isSubsequenceOf "hola" "hola"
+
+listaOrdenada = sort [(8.9,"A"),(23.5,"Avd"),(12.4,"Atfdf"),(1.3,"Aas"),(3,"Aasd")]
+-- esta instruccion es para obtener los m mejores
+partirListaM :: [a] -> Int -> [a]
+partirListaM [] m = []
+partirListaM x 0 = []
+partirListaM (x:xs) m = x : partirListaM xs (m-1)
+
+invertirListaM::Ord a=>[a]->[a]
+invertirListaM [ ] = [ ]
+invertirListaM (x:xs) = (invertirListaM xs)++[x]
+
+mMejores :: [(Double, String)] -> Int -> [(Double, String)]
+mMejores [] m = [(0,"Vacio")]
+mMejores (x:xs) m = partirListaM ( invertirListaM (sort (x:xs)) ) m
+
+mPeores :: [(Double, String)] -> Int -> [(Double, String)]
+mPeores [] m = [(0,"Vacio")]
+mPeores (x:xs) m = partirListaM ( sort (x:xs) ) m
